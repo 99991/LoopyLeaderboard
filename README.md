@@ -36,16 +36,32 @@ pip install requests torch transformers accelerate pillow
 python3 test_qwen3.py
 ```
 
+For testing OpenAI-compatible APIs, adjust the URL in `test_api.py` accordingly. For [GGUFs](https://huggingface.co/unsloth/Qwen3-VL-2B-Instruct-GGUF/blob/main/Qwen3-VL-2B-Instruct-BF16.gguf), the following [llama-server](https://github.com/ggml-org/llama.cpp/releases/tag/b7278) command was used:
+
+```bash
+llama-server \
+    --jinja \
+    --n-gpu-layers 999 \
+    --flash-attn auto \
+    --ctx-size 1024 \
+    --mmproj mmproj-BF16.gguf \
+    --model Qwen3-VL-2B-Instruct-BF16.gguf \
+    --port 8000
+```
+
+All experiments use the corresponding [BF16 mmproj](https://huggingface.co/unsloth/Qwen3-VL-2B-Instruct-GGUF/blob/main/mmproj-BF16.gguf).
+
 ### Results
 
 | Model | # Loopy Outputs | Loopy score (smaller is better) |
 |-|-|-|
+| [Qwen3-VL-2B, BF16](https://huggingface.co/unsloth/Qwen3-VL-2B-Instruct-GGUF/blob/main/Qwen3-VL-2B-Instruct-BF16.gguf) (greedy decoding) | 281 | 56.2 % |
 | [Qwen3-VL-2B](https://huggingface.co/Qwen/Qwen3-VL-2B-Instruct) (greedy decoding) | 256 | 51.2 % |
-| [Qwen3-VL-2B](https://huggingface.co/Qwen/Qwen3-VL-2B-Instruct) (non-greedy decoding) | 222 | 44.4 % |
 | [Qwen3-VL-4B](https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct) (greedy decoding) | 244 | 48.8 % |
-| [Qwen3-VL-4B](https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct) (non-greedy decoding) | 217 | 43.4 % |
 | [Qwen3-VL-4B, Q5_K_M](https://huggingface.co/unsloth/Qwen3-VL-4B-Instruct-GGUF/blob/main/Qwen3-VL-4B-Instruct-Q5_K_M.gguf) (greedy decoding) | 223 | 44.6 % |
+| [Qwen3-VL-2B](https://huggingface.co/Qwen/Qwen3-VL-2B-Instruct) (non-greedy decoding) | 222 | 44.4 % |
 | [Qwen3-VL-4B, BF16](https://huggingface.co/unsloth/Qwen3-VL-4B-Instruct-GGUF/blob/main/Qwen3-VL-4B-Instruct-BF16.gguf) (greedy decoding) | 220 | 44.0 % |
+| [Qwen3-VL-4B](https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct) (non-greedy decoding) | 217 | 43.4 % |
 | [Qwen3-VL-8B, Q5_K_M](https://huggingface.co/unsloth/Qwen3-VL-8B-Instruct-GGUF/blob/main/Qwen3-VL-8B-Instruct-Q5_K_M.gguf) (greedy decoding) | 142 | 28.4 % |
 | [Qwen3-VL-30B-A3B, Q4_K_S](https://huggingface.co/unsloth/Qwen3-VL-30B-A3B-Instruct-GGUF/blob/main/Qwen3-VL-30B-A3B-Instruct-Q4_K_S.gguf) (greedy decoding) | 116 | 23.2 % |
 
