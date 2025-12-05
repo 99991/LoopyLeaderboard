@@ -41,11 +41,15 @@ python3 test_qwen3.py
 | Model | # Loopy Outputs | Loopy score (smaller is better) |
 |-|-|-|
 | [Qwen3-VL-2B](https://huggingface.co/Qwen/Qwen3-VL-2B-Instruct) (greedy decoding) | 256 | 51.2 % |
-| [Qwen3-VL-4B](https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct) (greedy decoding) | 244 | 48.8 % |
 | [Qwen3-VL-2B](https://huggingface.co/Qwen/Qwen3-VL-2B-Instruct) (non-greedy decoding) | 222 | 44.4 % |
+| [Qwen3-VL-4B](https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct) (greedy decoding) | 244 | 48.8 % |
 | [Qwen3-VL-4B](https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct) (non-greedy decoding) | 217 | 43.4 % |
+| [Qwen3-VL-4B, Q5_K_M](https://huggingface.co/unsloth/Qwen3-VL-4B-Instruct-GGUF/blob/main/Qwen3-VL-4B-Instruct-Q5_K_M.gguf) (greedy decoding) | 223 | 44.6 % |
+| [Qwen3-VL-4B, BF16](https://huggingface.co/unsloth/Qwen3-VL-4B-Instruct-GGUF/blob/main/Qwen3-VL-4B-Instruct-BF16.gguf) (greedy decoding) | 220 | 44.0 % |
+| [Qwen3-VL-8B, Q5_K_M](https://huggingface.co/unsloth/Qwen3-VL-8B-Instruct-GGUF/blob/main/Qwen3-VL-8B-Instruct-Q5_K_M.gguf) (greedy decoding) | 142 | 28.4 % |
+| [Qwen3-VL-30B-A3B, Q4_K_S](https://huggingface.co/unsloth/Qwen3-VL-30B-A3B-Instruct-GGUF/blob/main/Qwen3-VL-30B-A3B-Instruct-Q4_K_S.gguf) (greedy decoding) | 116 | 23.2 % |
 
-More results will be added over time. You can also submit your own. Just [send a pull request](https://github.com/99991/LoopyLeaderboard/pulls).
+You can submit your own results. Just [send a pull request](https://github.com/99991/LoopyLeaderboard/pulls).
 
 ### Considerations
 
