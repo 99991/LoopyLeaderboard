@@ -1,17 +1,3 @@
-# For benchmarking Qwen3-VL-4B with llama server, download models from
-# https://huggingface.co/unsloth/Qwen3-VL-4B-Instruct-GGUF/tree/main
-# and run the following command
-"""
-llama-server \
-    --jinja \
-    --n-gpu-layers 999 \
-    --flash-attn auto \
-    --ctx-size 1024 \
-    --mmproj mmproj-BF16.gguf \
-    --model Qwen3-VL-4B-Instruct-Q5_K_M.gguf \
-    --port 8000
-"""
-
 import benchmark, requests, json, base64, time, warnings
 from pathlib import Path
 
