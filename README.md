@@ -1,5 +1,3 @@
-$$\color{red}\text{I am currently rerunning experiments with a new config. Check back in about two days.}$$
-
 <img width="867" height="351" alt="loopy_banner" src="https://github.com/user-attachments/assets/d13b48bd-900c-42b1-93cf-971606873324" />
 
 <hr>
