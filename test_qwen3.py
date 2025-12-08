@@ -5,6 +5,8 @@ from transformers import Qwen3VLForConditionalGeneration, AutoProcessor
 
 # set model here
 model_dir = "Qwen/Qwen3-VL-2B-Instruct"
+do_sample = True
+filename = f"{model_dir}_do_sample_{do_sample}.jsonl".replace("/", "_")
 
 model = Qwen3VLForConditionalGeneration.from_pretrained(
     model_dir, dtype=torch.bfloat16, device_map="cuda")
@@ -41,7 +43,7 @@ def ocr(path: Path, prompt: str) -> str:
 
     generated_ids = model.generate(
         **inputs,
-        max_new_tokens=256,
+        max_new_tokens=512,
         do_sample=True,
     )
     generated_ids_trimmed = [
@@ -52,4 +54,4 @@ def ocr(path: Path, prompt: str) -> str:
     )
     return output_texts[0]
 
-benchmark.run(ocr)
+benchmark.run(ocr, filename)

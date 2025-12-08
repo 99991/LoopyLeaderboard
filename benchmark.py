@@ -39,7 +39,7 @@ class RollingHash:
     def hash(self, start, stop):
         return (self.hashes[stop] - self.hashes[start] * self.powers[(stop - start)]) % self.mod
 
-def is_repeating(s, min_len=40, min_repeats=2):
+def is_repeating(s, min_len=150, min_repeats=4):
     r = RollingHash([ord(c) for c in s])
     n = len(s)
     length = 1
@@ -72,7 +72,7 @@ def is_repeating(s, min_len=40, min_repeats=2):
 
     return False
 
-def run(ocr):
+def run(ocr, filename="results.jsonl"):
     # download MSCOCO images
     for id in mscoco_ids:
         #url = f"http://images.cocodataset.org/train2014/COCO_train2014_{id:012d}.jpg" # alternative url
@@ -110,23 +110,33 @@ def run(ocr):
 
     paths = sorted(Path("images").glob("*"))
 
-    ok = 0
+    seen = set()
     loopy = 0
+    if Path(filename).exists():
+        for line in Path(filename).read_text().strip().split("\n"):
+            result = json.loads(line)
+            seen.add((result["path"], result["prompt"]))
+            loopy += result["repeating"]
+
+    counter = len(seen)
     for path in paths:
         for prompt in prompts:
+            # skip results that have been computed already
+            if (str(path), prompt) in seen: continue
+
             text = ocr(path, prompt)
 
             repeating = is_repeating(text)
 
             if repeating:
                 loopy += 1
-            else:
-                ok += 1
+            counter += 1
 
-            progress = 100 * (ok + loopy) / len(paths) / len(prompts)
-            percent_loopy = 100 * loopy / (ok + loopy)
-            print(f"loopy: {loopy} ({percent_loopy:.1f} %), ok: {ok}, progress: {progress:.1f} %")
+            total = len(paths) * len(prompts)
+            progress = 100 * counter / total
+            percent_loopy = 100 * loopy / counter
+            print(f"loopy: {loopy} ({percent_loopy:.1f} %), progress: {counter}/{total} ({progress:.1f} %)")
 
-            with open("results.jsonl", "a") as f:
+            with open(filename, "a") as f:
                 f.write(json.dumps({"path": str(path), "prompt": prompt, "text": text, "repeating": repeating}) + "\n")
 

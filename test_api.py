@@ -4,10 +4,18 @@ from pathlib import Path
 # set url to OpenAI-compatible endpoint here
 api_url = "http://127.0.0.1:8000/v1/chat/completions"
 
+try:
+    with requests.get(api_url.removesuffix("v1/chat/completions") + "models") as r:
+        r.raise_for_status()
+        model = r.json()["models"][0]["name"]
+        filename = f"results-{model}.jsonl"
+except Exception as e:
+    filename = None
+
 options = {
     "temperature": 0,
     "seed": 0,
-    "max_tokens": 256,
+    "max_tokens": 512,
 }
 
 def ocr(path: Path, prompt: str, max_retries: int=20) -> str:
@@ -42,4 +50,4 @@ def ocr(path: Path, prompt: str, max_retries: int=20) -> str:
 
     raise RuntimeError(f"Request failed {max_retries} times in a row")
 
-benchmark.run(ocr)
+benchmark.run(ocr, filename)
