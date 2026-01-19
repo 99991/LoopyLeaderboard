@@ -54,6 +54,7 @@ All experiments use [F32 or BF16 mmproj](https://huggingface.co/unsloth/Qwen3-VL
 
 | Loopy Score | # Loopy Outputs | Decoding | Model |
 | - | - | - | - |
+|   0.0 % |   0 | greedy     | [GLM-4.6V-Flash-Q5_K_M](https://huggingface.co/unsloth/GLM-4.6V-Flash-GGUF/blob/main/GLM-4.6V-Flash-Q5_K_M.gguf) |
 |   2.8 % |  14 | greedy     | [gemma-3-27b-it-Q4_K_M](https://huggingface.co/ggml-org/gemma-3-27b-it-GGUF/blob/main/gemma-3-27b-it-Q4_K_M.gguf) |
 |   4.4 % |  22 | greedy     | [Mistral-Small-3.1-24B-Instruct-2503-Q4_K_M](https://huggingface.co/unsloth/Mistral-Small-3.1-24B-Instruct-2503-GGUF/blob/main/Mistral-Small-3.1-24B-Instruct-2503-Q4_K_M.gguf) |
 |   8.0 % |  40 | greedy     | [gemma-3-4b-it-Q4_K_M](https://huggingface.co/ggml-org/gemma-3-4b-it-GGUF/blob/main/gemma-3-4b-it-Q4_K_M.gguf) |
